@@ -12,6 +12,7 @@ import { toast } from "react-toastify"
 
 function Profile() {
   const auth = getAuth()
+
   const [changeDetails, setChangeDetails] = useState(false)
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
@@ -30,7 +31,6 @@ function Profile() {
   const handleSubmit = async () => {
     try {
       auth.currentUser.displayName !== name &&
-        // update display name in Firebase
         (await updateProfile(auth.currentUser, {
           displayName: name,
         }))
@@ -38,7 +38,6 @@ function Profile() {
       auth.currentUser.email !== email &&
         (await updateEmail(auth.currentUser, email))
 
-      // update in firestore
       const userRef = doc(db, "users", auth.currentUser.uid)
       await updateDoc(userRef, {
         name,
@@ -72,7 +71,7 @@ function Profile() {
       </header>
       <main>
         <div className='profileDetailsHeader'>
-          <p className='profileDetailsText'>Personal details</p>
+          <p className='profileDetailsText'>Personal Details</p>
           <p
             className='changePersonalDetails'
             onClick={() => {
@@ -80,7 +79,7 @@ function Profile() {
               setChangeDetails(prevState => !prevState)
             }}
           >
-            {changeDetails ? "Done" : "Change"}
+            {changeDetails ? "done" : "change"}
           </p>
         </div>
         <div className='profileCard'>

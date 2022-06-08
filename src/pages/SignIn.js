@@ -35,13 +35,13 @@ function SignIn() {
         password,
       )
 
-      if (userCredential.user)
-        toast.success("successfully signed in!")
-      navigate("/")
+      if (userCredential.user) navigate("/")
+
+      toast.success("successfully signed in!")
     } catch (error) {
+      console.log(error)
       toast.error("Bad User Credentials", {
         autoClose: 3000,
-        position: "top-center",
       })
     }
   }

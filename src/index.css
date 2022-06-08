@@ -694,9 +694,17 @@ button {
 .profileAddressActive,
 .profileEmailActive {
   font-weight: 500;
+  /* padding: 1rem; */
 }
 .profileEmailActive {
   background-color: hsla(0, 0%, 17%, 0.1);
+  /* padding: 1rem; */
+}
+
+.profileEmailActive,
+.profileNameActive {
+  padding: 1rem;
+  border-radius: 0.3rem;
 }
 
 .profileAddressActive {
