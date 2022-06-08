@@ -3,6 +3,7 @@ import {
   AuthCredential,
   getAuth,
   updateProfile,
+  updateEmail,
 } from "firebase/auth"
 import { useNavigate, Link } from "react-router-dom"
 import { db } from "../firebase.config"
@@ -26,7 +27,7 @@ function Profile() {
     navigate("/")
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = async () => {
     try {
       auth.currentUser.displayName !== name &&
         // update display name in Firebase
@@ -35,7 +36,7 @@ function Profile() {
         }))
 
       auth.currentUser.email !== email &&
-        (await updateProfile(auth.currentUser, email))
+        (await updateEmail(auth.currentUser, email))
 
       // update in firestore
       const userRef = doc(db, "users", auth.currentUser.uid)
@@ -79,7 +80,7 @@ function Profile() {
               setChangeDetails(prevState => !prevState)
             }}
           >
-            {changeDetails ? "Done" : "change"}
+            {changeDetails ? "Done" : "Change"}
           </p>
         </div>
         <div className='profileCard'>

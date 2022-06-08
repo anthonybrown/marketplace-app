@@ -9,4 +9,8 @@ const PrivateRoute = () => {
   return loggedIn ? <Outlet /> : <Navigate to='/sign-in' />
 }
 
+// https://stackoverflow.com/questions/65505665/protected-route-with-firebase
+
+// https://stackoverflow.com/questions/59780268/cleanup-memory-leaks-on-unmounted-component-in-react-hooks
+
 export default PrivateRoute
