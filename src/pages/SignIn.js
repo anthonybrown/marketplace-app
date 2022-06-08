@@ -35,7 +35,9 @@ function SignIn() {
         password,
       )
 
-      if (userCredential.user) navigate("/")
+      if (userCredential.user)
+        toast.success("successfully signed in!")
+      navigate("/")
     } catch (error) {
       toast.error("Bad User Credentials", {
         autoClose: 3000,

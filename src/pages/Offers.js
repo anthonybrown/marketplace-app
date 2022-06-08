@@ -1,6 +1,6 @@
 function Offers() {
   return (
-    <div>
+    <div className='pageContainer'>
       <h1>Offers</h1>
     </div>
   )
