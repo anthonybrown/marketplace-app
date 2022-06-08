@@ -54,8 +54,10 @@ function SignUp() {
 
       await setDoc(doc(db, "users", user.uid), formDataCopy)
 
-      navigate("/").toast.success("login successful!")
+      navigate("/")
+      toast.success("login successful!")
     } catch (error) {
+      console.log(error)
       toast.error("Something went wrong with the registration", {
         autoClose: 3000,
       })
