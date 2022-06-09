@@ -528,20 +528,20 @@ button {
 }
 
 .discountPrice {
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 1rem;
   background-color: hsl(0, 0%, 0%);
   color: hsl(0, 0%, 100%);
-  border-radius: 1rem;
+  border-radius: 0.3rem;
   font-size: 0.8rem;
   font-weight: 600;
   display: inline;
 }
 
 .listingType {
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 1rem;
   background-color: hsl(150, 100%, 40%);
   color: hsl(0, 0%, 100%);
-  border-radius: 2rem;
+  border-radius: 0.3rem;
   display: inline;
   font-weight: 600;
   font-size: 0.8rem;
