@@ -1,7 +1,16 @@
 import { useState, useEffect, useRef } from "react"
 import { onAuthStateChanged, getAuth } from "firebase/auth"
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage"
+import { db } from "../firebase.config"
 import { useNavigate } from "react-router-dom"
 import Spinner from "../components/Spinner"
+import { toast } from "react-toastify"
+import { v4 as uuidv4 } from "uuid"
 
 function CreatListing() {
   const [geoLocationEnabled, setGeoLocationEnabled] =
@@ -43,9 +52,116 @@ function CreatListing() {
   const navigate = useNavigate()
   const isMounted = useRef(true)
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
+
+    if (discountedPrice >= regularPrice) {
+      setLoading(false)
+      toast.error(
+        "Discounted price should be lower than regular price.",
+      )
+      return
+    }
+
+    if (images.length > 6) {
+      setLoading(false)
+      toast.error("Maximum of 6 images")
+      return
+    }
+
+    let geolocation = {}
+    let location
+
+    if (geoLocationEnabled) {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`,
+      )
+
+      const data = await response.json()
+      geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
+      geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
+      location =
+        data.status === "ZERO_RESULTS"
+          ? undefined
+          : data.results[0]?.formatted_address
+
+      if (
+        location === undefined ||
+        location.includes("undefined")
+      ) {
+        setLoading(false)
+        toast.error("Please enter a correct address.")
+        return
+      }
+    } else {
+      geolocation.lat = latitude
+      geolocation.lng = longitude
+      location = address
+    }
+
+    const storeImage = async image => {
+      return new Promise((resolve, reject) => {
+        const storage = getStorage()
+        const fileName = `${auth.currentUser.uid}-${
+          image.name
+        }-${uuidv4()}`
+
+        const storageRef = ref(storage, "images/" + fileName)
+
+        const metadata = {
+          contentType: "image/jpg",
+        }
+        const uploadTask = uploadBytesResumable(
+          storageRef,
+          image,
+          metadata,
+        )
+
+        uploadTask.on(
+          "state_changed",
+          snapshot => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) *
+              100
+            console.log("Upload is " + progress + "% done")
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused")
+                break
+              case "running":
+                console.log("Upload is running")
+                break
+            }
+          },
+          error => {
+            reject(error)
+          },
+          () => {
+            // Upload completed successfully, now we can get the download URL
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              downloadURL => {
+                // console.log("File available at", downloadURL)
+                resolve(downloadURL)
+              },
+            )
+          },
+        )
+      })
+    }
+
+    const imgUrls = await Promise.all(
+      [...images].map(image => storeImage(image)),
+    ).catch(() => {
+      setLoading(false)
+      toast.error("Images not uploaded")
+      return
+    })
+
+    console.log(imgUrls)
+
+    setLoading(false)
   }
+
   const onMutate = e => {
     let boolean = null
 
