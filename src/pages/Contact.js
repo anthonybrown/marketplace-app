@@ -64,7 +64,7 @@ function Contact() {
                 "listingName",
               )}&body=${message}`}
             >
-              <button className='primaryButton' type='button'>
+              <button className='primaryButton ' type='button'>
                 Send Message
               </button>
             </a>

@@ -5,6 +5,9 @@ import {
   Popup,
   TileLayer,
 } from "react-leaflet"
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper"
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/css/bundle"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { getDoc, doc } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
@@ -41,8 +44,29 @@ function Listing() {
 
   return (
     <main>
-      {/* SLIDER GOES HERE */}
-
+      <div>
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          navigation
+          style={{ height: 550 }}
+        >
+          {listing.imgUrls.map((url, idx) => {
+            return (
+              <SwiperSlide key={idx}>
+                <div
+                  className='swiperSlideDiv'
+                  style={{
+                    background: `url(${listing.imgUrls[idx]}) center no-repeat`,
+                    backgroundSize: "cover",
+                  }}
+                ></div>
+              </SwiperSlide>
+            )
+          })}
+        </Swiper>
+      </div>
       <div
         className='shareIconDiv'
         onClick={() => {
