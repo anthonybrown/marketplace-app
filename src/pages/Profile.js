@@ -1,17 +1,11 @@
 import { useState, useEffect } from "react"
-import {
-  // AuthCredential,
-  getAuth,
-  updateProfile,
-  updateEmail,
-} from "firebase/auth"
+import { getAuth, updateProfile, updateEmail } from "firebase/auth"
 import { useNavigate, Link } from "react-router-dom"
 import { db } from "../firebase.config"
 import {
   updateDoc,
   doc,
   collection,
-  getDoc,
   query,
   where,
   orderBy,
