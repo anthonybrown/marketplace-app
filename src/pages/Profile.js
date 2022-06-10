@@ -15,6 +15,7 @@ import {
 import { toast } from "react-toastify"
 import arrowRight from "../assets/svg/keyboardArrowRightIcon.svg"
 import homeIcon from "../assets/svg/homeIcon.svg"
+// eslint-disable-next-line
 import { list } from "firebase/storage"
 import ListingItem from "../components/ListingItem"
 
