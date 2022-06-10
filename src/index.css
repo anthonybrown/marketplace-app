@@ -78,15 +78,15 @@ button {
 .removeIcon {
   cursor: pointer;
   position: absolute;
-  top: 20%;
-  right: 2%;
+  top: 33%;
+  right: 0;
   font-size: 3rem;
 }
 .editIcon {
   cursor: pointer;
   position: absolute;
-  top: -3.4%;
-  right: 20px;
+  top: 33%;
+  right: 5%;
 }
 
 .pageContainer,

@@ -17,7 +17,7 @@ import Spinner from "../components/Spinner"
 import { toast } from "react-toastify"
 import { v4 as uuidv4 } from "uuid"
 
-function CreatListing() {
+function CreateListing() {
   const [geoLocationEnabled, setGeoLocationEnabled] =
     useState(true)
   const [loading, setLoading] = useState(false)
@@ -481,4 +481,4 @@ function CreatListing() {
   )
 }
 
-export default CreatListing
+export default CreateListing
