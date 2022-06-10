@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app"
+// import { getAnalytics } from "firebase/analytics"
 import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
@@ -11,5 +12,5 @@ const firebaseConfig = {
   appId: "1:789176675742:web:e9c3e1826fa8df0580fa8f",
   measurementId: "G-CLQHFFQGKD",
 }
-
+const app = initializeApp(firebaseConfig)
 export const db = getFirestore()
